@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { GenericShoppingCart, Product, ShoppingCart } from '../interfaces/interfaces';
+import { GenericShoppingCart, Product } from '../interfaces/interfaces';
 
 export const useShoppingCart = () => {
 
