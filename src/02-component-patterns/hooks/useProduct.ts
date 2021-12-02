@@ -1,14 +1,34 @@
+import { useEffect, useRef, useState } from 'react';
+import { Product, onChangeArgs } from '../interfaces/interfaces';
 
-import { useState } from 'react';
+interface useProductArgs {
+    product: Product;
+    onChange?: ( args: onChangeArgs ) => void;
+    value?: number;
+}
 
+const useProduct = ( { onChange, product, value = 0 }: useProductArgs ) => {
 
-const useProduct = () => {
+    const [counter, setCounter] = useState(value);
 
-    const [counter, setCounter] = useState(0);
+    const isControlled = useRef( !!onChange );
 
-    const increaseBy = (value: number) => {
-        setCounter(prev => Math.max( prev + value, 0 ));
+    const increaseBy = (valueIncrease: number) => {
+
+        if ( isControlled.current ) {
+            return onChange!({ count: valueIncrease, product });
+        }
+
+        const newValue = Math.max( counter + valueIncrease, 0 );
+
+        setCounter( newValue );
+
+        onChange && onChange({ count: newValue, product });
     }
+
+    useEffect(() => {
+        setCounter(value);
+    }, [value])
 
     return {
         counter, increaseBy

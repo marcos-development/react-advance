@@ -18,3 +18,9 @@
     border-color: white;
     color: white;
 }
+
+.shopping-card {
+    position: fixed;
+    right: 10px;
+    top: 0px;
+}
